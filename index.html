@@ -516,7 +516,7 @@
         <div class="tool-inner">
           <div class="tool-toggle">
             <button class="regime-btn active" onclick="setAY(this,'2526')">FY 2025-26</button>
-            <button class="regime-btn" onclick="setAY(this,'2425')">FY 2024-25</button>
+            <button class="regime-btn" onclick="setAY(this,'2627')">FY 2026-27</button>
           </div>
           <div class="tool-grid">
             <div class="tool-field"><label>Gross Annual Income (₹)</label><input type="number" id="income" value="1200000" min="0" step="10000" oninput="calcTax()"></div>
@@ -595,9 +595,31 @@
       <!-- HRA CALCULATOR -->
       <div id="tool-hra" class="tool-panel" style="display:none;">
         <div class="tool-inner">
-          <div class="tool-toggle" style="margin-bottom:1rem;">
-            <button class="regime-btn active" onclick="setCity(this,0.5)">Metro City</button>
-            <button class="regime-btn" onclick="setCity(this,0.4)">Non-Metro</button>
+          <div class="tool-field" style="margin-bottom:1.5rem;">
+            <label>Select Your City</label>
+            <select id="hra_city" onchange="setCityFromDropdown()" style="font-size:15px;padding:12px 16px;">
+              <optgroup label="Metro Cities — 50% HRA (Existing)">
+                <option value="0.5">Delhi (NCR)</option>
+                <option value="0.5">Mumbai</option>
+                <option value="0.5">Kolkata</option>
+                <option value="0.5">Chennai</option>
+              </optgroup>
+              <optgroup label="Metro Cities — 50% HRA (Draft Rules 2026, effective Apr 1 2026)">
+                <option value="0.5">Bengaluru</option>
+                <option value="0.5">Hyderabad</option>
+                <option value="0.5">Pune</option>
+                <option value="0.5">Ahmedabad</option>
+              </optgroup>
+              <optgroup label="Non-Metro Cities — 40% HRA">
+                <option value="0.4">Noida / Gurugram</option>
+                <option value="0.4">Jaipur</option>
+                <option value="0.4">Lucknow</option>
+                <option value="0.4">Kochi</option>
+                <option value="0.4">Indore</option>
+                <option value="0.4">Any Other City</option>
+              </optgroup>
+            </select>
+            <span id="hra_city_note" style="font-size:12px;color:var(--green-dark);margin-top:4px;"></span>
           </div>
           <div class="tool-grid">
             <div class="tool-field"><label>Basic Salary + DA (Annual ₹)</label><input type="number" id="hra_basic" value="600000" min="0" step="10000" oninput="calcHRA()"></div>
@@ -690,9 +712,7 @@
     function fmt(n) { return '₹'+Math.round(n).toLocaleString('en-IN'); }
 
     let ay='2526';
-    function setAY(btn,v) { ay=v; btn.closest('.tool-toggle').querySelectorAll('.regime-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); calcTax(); }
-
-    function calcRawNewTax2526(ti) {
+    function setAY(btn,v) { ay=v; btn.closest('.tool-toggle').querySelectorAll('.regime-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); calcTax(); }(ti) {
       if(ti<=400000) return 0;
       let tax=0,rem=ti-400000;
       const slabs=[[400000,.05],[400000,.1],[400000,.15],[400000,.2],[Infinity,.3]];
@@ -770,7 +790,7 @@
       const oldTI=Math.max(0,income-50000-d80c-d80d-hra-other);
       const newTI=Math.max(0,income-75000);
       const oldTotal=addSurcharge(calcOldTax(oldTI,age),income);
-      const newTotal=addSurcharge(ay==='2526'?calcNewTax2526(newTI):calcNewTax2425(newTI),income);
+      const newTotal=addSurcharge(ay==='2526'||ay==='2627'?calcNewTax2526(newTI):calcNewTax2526(newTI),income);
       document.getElementById('old-tax').textContent=fmt(oldTotal);
       document.getElementById('new-tax').textContent=fmt(newTotal);
       document.getElementById('old-eff').textContent='Effective: '+(income>0?((oldTotal/income)*100).toFixed(1):0)+'%';
@@ -808,8 +828,52 @@
     }
 
     let cityPct=0.5;
-    function setCity(btn,pct){btn.closest('.tool-toggle').querySelectorAll('.regime-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');cityPct=pct;calcHRA();}
+    let hraYear='2526';
+
+    const cities2526={
+      metro:['Delhi (NCR)','Mumbai','Kolkata','Chennai'],
+      newMetro:[],
+      nonMetro:['Bengaluru','Hyderabad','Pune','Ahmedabad','Noida / Gurugram','Jaipur','Lucknow','Kochi','Indore','Any Other City']
+    };
+    const cities2627={
+      metro:['Delhi (NCR)','Mumbai','Kolkata','Chennai'],
+      newMetro:['Bengaluru','Hyderabad','Pune','Ahmedabad'],
+      nonMetro:['Noida / Gurugram','Jaipur','Lucknow','Kochi','Indore','Any Other City']
+    };
+
+    function buildCityDropdown(yr){
+      const sel=document.getElementById('hra_city');
+      const c=yr==='2526'?cities2526:cities2627;
+      sel.innerHTML='';
+      const g1=document.createElement('optgroup');
+      g1.label='Metro Cities — 50% HRA';
+      c.metro.forEach(city=>{const o=document.createElement('option');o.value='0.5';o.textContent=city;g1.appendChild(o);});
+      sel.appendChild(g1);
+      if(c.newMetro.length){
+        const g2=document.createElement('optgroup');
+        g2.label='New Metro Cities — 50% HRA (w.e.f. FY 2026-27)';
+        c.newMetro.forEach(city=>{const o=document.createElement('option');o.value='0.5';o.textContent=city;g2.appendChild(o);});
+        sel.appendChild(g2);
+      }
+      const g3=document.createElement('optgroup');
+      g3.label='Non-Metro Cities — 40% HRA';
+      c.nonMetro.forEach(city=>{const o=document.createElement('option');o.value='0.4';o.textContent=city;g3.appendChild(o);});
+      sel.appendChild(g3);
+      calcHRA();
+    }
+
+    function setHRAYear(btn,yr){
+      btn.closest('.tool-toggle').querySelectorAll('.regime-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      hraYear=yr;
+      buildCityDropdown(yr);
+      const note=document.getElementById('hra_city_note');
+      note.textContent=yr==='2627'?'FY 2026-27: Bengaluru, Hyderabad, Pune & Ahmedabad added as Metro — 50% HRA applicable':'FY 2025-26: Only Delhi, Mumbai, Kolkata & Chennai are Metro — 50% HRA applicable';
+    }
+
     function calcHRA(){
+      const sel=document.getElementById('hra_city');
+      cityPct=parseFloat(sel.value)||0.5;
       const basic=parseFloat(document.getElementById('hra_basic').value)||0;
       const rcvd=parseFloat(document.getElementById('hra_rcvd').value)||0;
       const rent=parseFloat(document.getElementById('hra_rent').value)||0;
@@ -822,7 +886,8 @@
       document.getElementById('h_taxable').textContent=fmt(rcvd-exempt);
       document.getElementById('h_saved').textContent=fmt(exempt*.3);
     }
-    calcHRA();
+    buildCityDropdown('2526');
+    document.getElementById('hra_city_note').textContent='FY 2025-26: Only Delhi, Mumbai, Kolkata & Chennai are Metro — 50% HRA applicable';
 
     let tdsRegime='new';
     function setTDSRegime(btn,r){btn.closest('.tool-toggle').querySelectorAll('.regime-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');tdsRegime=r;document.getElementById('t_dec_field').style.opacity=r==='old'?'1':'0.4';calcTDS();}
