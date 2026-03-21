@@ -620,6 +620,16 @@
       <h2>Calculate Your Tax — Instantly</h2>
       <p class="section-body">Use these free calculators to plan your taxes better. For personalised advice, book a session with CA Pulkit Garg.</p>
 
+      <!-- GLOBAL FY SELECTOR -->
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;padding:1rem 1.25rem;background:var(--bg-secondary);border-radius:12px;flex-wrap:wrap;">
+        <span style="font-size:14px;font-weight:600;color:var(--text-primary);">Financial Year:</span>
+        <div style="display:flex;gap:8px;">
+          <button class="regime-btn active" id="fy-btn-2526" onclick="setGlobalFY(this,'2526')">FY 2025-26</button>
+          <button class="regime-btn" id="fy-btn-2627" onclick="setGlobalFY(this,'2627')">FY 2026-27</button>
+        </div>
+        <span style="font-size:12px;color:var(--text-muted);margin-left:auto;" id="fy-note">AY 2026-27 · All calculators updated automatically</span>
+      </div>
+
       <!-- TOOL TABS -->
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:2rem;">
         <button class="tool-tab active" onclick="showTool('calc')">Income Tax Calculator</button>
@@ -631,10 +641,6 @@
       <!-- INCOME TAX CALCULATOR -->
       <div id="tool-calc" class="tool-panel">
         <div class="tool-inner">
-          <div class="tool-toggle">
-            <button class="regime-btn active" onclick="setAY(this,'2526')">FY 2025-26</button>
-            <button class="regime-btn" onclick="setAY(this,'2627')">FY 2026-27</button>
-          </div>
           <div class="tool-grid">
             <div class="tool-field"><label>Gross Annual Income (₹)</label><input type="number" id="income" value="1200000" min="0" step="10000" oninput="calcTax()"></div>
             <div class="tool-field"><label>Age Group</label>
@@ -714,29 +720,8 @@
         <div class="tool-inner">
           <div class="tool-field" style="margin-bottom:1.5rem;">
             <label>Select Your City</label>
-            <select id="hra_city" onchange="setCityFromDropdown()" style="font-size:15px;padding:12px 16px;">
-              <optgroup label="Metro Cities — 50% HRA (Existing)">
-                <option value="0.5">Delhi (NCR)</option>
-                <option value="0.5">Mumbai</option>
-                <option value="0.5">Kolkata</option>
-                <option value="0.5">Chennai</option>
-              </optgroup>
-              <optgroup label="Metro Cities — 50% HRA (Draft Rules 2026, effective Apr 1 2026)">
-                <option value="0.5">Bengaluru</option>
-                <option value="0.5">Hyderabad</option>
-                <option value="0.5">Pune</option>
-                <option value="0.5">Ahmedabad</option>
-              </optgroup>
-              <optgroup label="Non-Metro Cities — 40% HRA">
-                <option value="0.4">Noida / Gurugram</option>
-                <option value="0.4">Jaipur</option>
-                <option value="0.4">Lucknow</option>
-                <option value="0.4">Kochi</option>
-                <option value="0.4">Indore</option>
-                <option value="0.4">Any Other City</option>
-              </optgroup>
-            </select>
-            <span id="hra_city_note" style="font-size:12px;color:var(--green-dark);margin-top:4px;"></span>
+            <select id="hra_city" onchange="calcHRA()" style="font-size:15px;padding:12px 16px;"></select>
+            <span id="hra_city_note" style="font-size:12px;color:var(--green-dark);margin-top:6px;display:block;"></span>
           </div>
           <div class="tool-grid">
             <div class="tool-field"><label>Basic Salary + DA (Annual ₹)</label><input type="number" id="hra_basic" value="600000" min="0" step="10000" oninput="calcHRA()"></div>
@@ -836,7 +821,20 @@
     function fmt(n) { return '₹'+Math.round(n).toLocaleString('en-IN'); }
 
     let ay='2526';
-    function setAY(btn,v) { ay=v; btn.closest('.tool-toggle').querySelectorAll('.regime-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); calcTax(); }
+
+    function setGlobalFY(btn, v) {
+      ay = v;
+      document.querySelectorAll('[id^="fy-btn-"]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('fy-note').textContent = v==='2526' ? 'AY 2026-27 · All calculators updated automatically' : 'AY 2027-28 · All calculators updated automatically';
+      calcTax();
+      buildCityDropdown(v);
+      document.getElementById('hra_city_note').textContent = v==='2627' ? 'FY 2026-27: Bengaluru, Hyderabad, Pune & Ahmedabad added as Metro — 50% HRA applicable' : 'FY 2025-26: Only Delhi, Mumbai, Kolkata & Chennai are Metro — 50% HRA applicable';
+      calcHRA();
+      calcTDS();
+    }
+
+    function setAY(btn,v) { setGlobalFY(document.getElementById('fy-btn-'+v), v); }
     function calcRawNewTax2526(ti) {
       if(ti<=400000) return 0;
       let tax=0,rem=ti-400000;
@@ -987,14 +985,7 @@
       calcHRA();
     }
 
-    function setHRAYear(btn,yr){
-      btn.closest('.tool-toggle').querySelectorAll('.regime-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      hraYear=yr;
-      buildCityDropdown(yr);
-      const note=document.getElementById('hra_city_note');
-      note.textContent=yr==='2627'?'FY 2026-27: Bengaluru, Hyderabad, Pune & Ahmedabad added as Metro — 50% HRA applicable':'FY 2025-26: Only Delhi, Mumbai, Kolkata & Chennai are Metro — 50% HRA applicable';
-    }
+    function setHRAYear(btn,yr){ setGlobalFY(document.getElementById('fy-btn-'+yr), yr); }
 
     function calcHRA(){
       const sel=document.getElementById('hra_city');
@@ -1013,6 +1004,8 @@
     }
     buildCityDropdown('2526');
     document.getElementById('hra_city_note').textContent='FY 2025-26: Only Delhi, Mumbai, Kolkata & Chennai are Metro — 50% HRA applicable';
+    calcTax();
+    calcTDS();
 
     let tdsRegime='new';
     function setTDSRegime(btn,r){btn.closest('.tool-toggle').querySelectorAll('.regime-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');tdsRegime=r;document.getElementById('t_dec_field').style.opacity=r==='old'?'1':'0.4';calcTDS();}
