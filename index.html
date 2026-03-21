@@ -496,6 +496,320 @@
     </div>
   </section>
 
+  <!-- TAX TOOLS -->
+  <section id="tools">
+    <div class="section-inner" style="max-width:900px;">
+      <div class="section-badge blue">Free Tax Tools</div>
+      <h2>Calculate Your Tax — Instantly</h2>
+      <p class="section-body">Use these free calculators to plan your taxes better. For personalised advice, book a session with CA Pulkit Garg.</p>
+
+      <!-- TOOL TABS -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:2rem;">
+        <button class="tool-tab active" onclick="showTool('calc')">Income Tax Calculator</button>
+        <button class="tool-tab" onclick="showTool('itr')">ITR Form Selector</button>
+        <button class="tool-tab" onclick="showTool('hra')">HRA Calculator</button>
+        <button class="tool-tab" onclick="showTool('tds')">TDS Calculator</button>
+      </div>
+
+      <!-- INCOME TAX CALCULATOR -->
+      <div id="tool-calc" class="tool-panel">
+        <div class="tool-inner">
+          <div class="tool-toggle">
+            <button class="regime-btn active" onclick="setAY(this,'2526')">FY 2025-26</button>
+            <button class="regime-btn" onclick="setAY(this,'2425')">FY 2024-25</button>
+          </div>
+          <div class="tool-grid">
+            <div class="tool-field"><label>Gross Annual Income (₹)</label><input type="number" id="income" value="1200000" min="0" step="10000" oninput="calcTax()"></div>
+            <div class="tool-field"><label>Age Group</label>
+              <select id="age" onchange="calcTax()">
+                <option value="below60">Below 60</option>
+                <option value="60to80">60–80 (Senior Citizen)</option>
+                <option value="above80">Above 80 (Super Senior)</option>
+              </select>
+            </div>
+            <div class="tool-field"><label>80C Deductions (₹)</label><input type="number" id="ded80c" value="150000" min="0" max="150000" step="5000" oninput="calcTax()"></div>
+            <div class="tool-field"><label>80D Medical Insurance (₹)</label><input type="number" id="ded80d" value="25000" min="0" step="5000" oninput="calcTax()"></div>
+            <div class="tool-field"><label>HRA Exemption (₹)</label><input type="number" id="hra_calc" value="120000" min="0" step="5000" oninput="calcTax()"></div>
+            <div class="tool-field"><label>Other Deductions (₹)</label><input type="number" id="other_calc" value="0" min="0" step="5000" oninput="calcTax()"></div>
+          </div>
+          <div class="result-cards">
+            <div class="result-card">
+              <div class="result-label">Old Regime Tax</div>
+              <div class="result-val" id="old-tax">₹0</div>
+              <div class="result-sub" id="old-eff">Effective: 0%</div>
+              <span class="winner-badge" id="old-badge"></span>
+            </div>
+            <div class="result-card">
+              <div class="result-label">New Regime Tax</div>
+              <div class="result-val" id="new-tax">₹0</div>
+              <div class="result-sub" id="new-eff">Effective: 0%</div>
+              <span class="winner-badge" id="new-badge"></span>
+            </div>
+          </div>
+          <div class="breakdown-box" id="tax-breakdown"></div>
+        </div>
+      </div>
+
+      <!-- ITR FORM SELECTOR -->
+      <div id="tool-itr" class="tool-panel" style="display:none;">
+        <div class="tool-inner">
+          <div class="itr-q"><label>Who are you?</label>
+            <div class="chip-group">
+              <button class="chip" onclick="selITR(this,'who','individual')">Individual</button>
+              <button class="chip" onclick="selITR(this,'who','huf')">HUF</button>
+              <button class="chip" onclick="selITR(this,'who','firm')">Firm / LLP</button>
+              <button class="chip" onclick="selITR(this,'who','company')">Company</button>
+            </div>
+          </div>
+          <div class="itr-q"><label>Income sources (select all)</label>
+            <div class="chip-group">
+              <button class="chip" onclick="togITR(this,'src','salary')">Salary</button>
+              <button class="chip" onclick="togITR(this,'src','hp')">House Property</button>
+              <button class="chip" onclick="togITR(this,'src','business')">Business / Profession</button>
+              <button class="chip" onclick="togITR(this,'src','cg')">Capital Gains</button>
+              <button class="chip" onclick="togITR(this,'src','foreign')">Foreign Income / Assets</button>
+              <button class="chip" onclick="togITR(this,'src','other')">Other Sources</button>
+            </div>
+          </div>
+          <div class="itr-q"><label>Total Income</label>
+            <div class="chip-group">
+              <button class="chip" onclick="selITR(this,'income','below5')">Below ₹5 Lakh</button>
+              <button class="chip" onclick="selITR(this,'income','above5')">₹5 Lakh &amp; above</button>
+            </div>
+          </div>
+          <div class="itr-q"><label>Residential Status</label>
+            <div class="chip-group">
+              <button class="chip" onclick="selITR(this,'res','resident')">Resident</button>
+              <button class="chip" onclick="selITR(this,'res','nri')">NRI / RNOR</button>
+            </div>
+          </div>
+          <div id="itr-result" style="display:none;background:var(--bg-secondary);border-radius:12px;padding:1.5rem;margin-top:1rem;">
+            <div style="font-size:28px;font-weight:600;color:var(--blue);margin-bottom:6px;" id="itr-form-name"></div>
+            <div style="font-size:14px;color:var(--text-secondary);margin-bottom:1rem;" id="itr-form-desc"></div>
+            <div id="itr-form-points"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HRA CALCULATOR -->
+      <div id="tool-hra" class="tool-panel" style="display:none;">
+        <div class="tool-inner">
+          <div class="tool-toggle" style="margin-bottom:1rem;">
+            <button class="regime-btn active" onclick="setCity(this,0.5)">Metro City</button>
+            <button class="regime-btn" onclick="setCity(this,0.4)">Non-Metro</button>
+          </div>
+          <div class="tool-grid">
+            <div class="tool-field"><label>Basic Salary + DA (Annual ₹)</label><input type="number" id="hra_basic" value="600000" min="0" step="10000" oninput="calcHRA()"></div>
+            <div class="tool-field"><label>HRA Received (Annual ₹)</label><input type="number" id="hra_rcvd" value="240000" min="0" step="10000" oninput="calcHRA()"></div>
+            <div class="tool-field"><label>Rent Paid (Annual ₹)</label><input type="number" id="hra_rent" value="180000" min="0" step="10000" oninput="calcHRA()"></div>
+          </div>
+          <div class="result-cards" style="grid-template-columns:repeat(3,1fr);">
+            <div class="result-card"><div class="result-label">HRA Received</div><div class="result-val" id="h1">₹0</div></div>
+            <div class="result-card"><div class="result-label">Rent - 10% Basic</div><div class="result-val" id="h2">₹0</div></div>
+            <div class="result-card"><div class="result-label">% of Basic</div><div class="result-val" id="h3">₹0</div></div>
+          </div>
+          <div class="breakdown-box" style="margin-top:1rem;">
+            <div class="brow"><span>HRA Exemption (Min of 3)</span><span id="h_exempt" style="color:var(--green);">₹0</span></div>
+            <div class="brow"><span>Taxable HRA</span><span id="h_taxable">₹0</span></div>
+            <div class="brow last"><span>Tax Saved (30% bracket)</span><span id="h_saved" style="color:var(--green);">₹0</span></div>
+          </div>
+          <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">Exemption u/s 10(13A) — minimum of 3 conditions applies</p>
+        </div>
+      </div>
+
+      <!-- TDS CALCULATOR -->
+      <div id="tool-tds" class="tool-panel" style="display:none;">
+        <div class="tool-inner">
+          <div class="tool-toggle" style="margin-bottom:1rem;">
+            <button class="regime-btn active" onclick="setTDSRegime(this,'new')">New Regime</button>
+            <button class="regime-btn" onclick="setTDSRegime(this,'old')">Old Regime</button>
+          </div>
+          <div class="tool-grid">
+            <div class="tool-field"><label>Basic Salary (Monthly ₹)</label><input type="number" id="t_basic" value="50000" min="0" step="1000" oninput="calcTDS()"></div>
+            <div class="tool-field"><label>HRA (Monthly ₹)</label><input type="number" id="t_hra" value="20000" min="0" step="1000" oninput="calcTDS()"></div>
+            <div class="tool-field"><label>Special Allowance (Monthly ₹)</label><input type="number" id="t_spec" value="10000" min="0" step="1000" oninput="calcTDS()"></div>
+            <div class="tool-field"><label>Other Allowances (Monthly ₹)</label><input type="number" id="t_other" value="5000" min="0" step="1000" oninput="calcTDS()"></div>
+            <div class="tool-field" id="t_dec_field"><label>Annual Declarations (80C+80D+HRA ₹)</label><input type="number" id="t_dec" value="300000" min="0" step="10000" oninput="calcTDS()"></div>
+          </div>
+          <div class="result-cards" style="grid-template-columns:repeat(3,1fr);">
+            <div class="result-card"><div class="result-label">Gross Annual</div><div class="result-val" id="t_gross">₹0</div></div>
+            <div class="result-card"><div class="result-label">Annual TDS</div><div class="result-val" id="t_annual">₹0</div></div>
+            <div class="result-card"><div class="result-label">Monthly TDS</div><div class="result-val" id="t_monthly" style="color:var(--blue);">₹0</div></div>
+          </div>
+          <div class="breakdown-box" style="margin-top:1rem;">
+            <div class="brow"><span>Gross Salary</span><span id="tr1">₹0</span></div>
+            <div class="brow"><span>Standard Deduction</span><span id="tr2">₹0</span></div>
+            <div class="brow"><span>Declarations / Deductions</span><span id="tr3">₹0</span></div>
+            <div class="brow"><span>Taxable Income</span><span id="tr4">₹0</span></div>
+            <div class="brow last"><span>Monthly TDS u/s 192</span><span id="tr5">₹0</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <style>
+    .tool-tab { padding: 8px 18px; border-radius: 20px; font-size: 14px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); transition: all 0.2s; }
+    .tool-tab.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .tool-panel { background: var(--bg-secondary); border-radius: 16px; padding: 2rem; }
+    .tool-inner { max-width: 700px; }
+    .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+    .tool-field { display: flex; flex-direction: column; gap: 4px; }
+    .tool-field label { font-size: 12px; color: var(--text-secondary); }
+    .tool-field input, .tool-field select { padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; background: var(--bg); color: var(--text-primary); }
+    .tool-toggle { display: flex; gap: 8px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .regime-btn { padding: 6px 16px; border-radius: 20px; font-size: 13px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); }
+    .regime-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .result-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1rem; }
+    .result-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; }
+    .result-label { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+    .result-val { font-size: 22px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+    .result-sub { font-size: 12px; color: var(--text-muted); }
+    .winner-badge { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; background: var(--green-light); color: var(--green-dark); }
+    .breakdown-box { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; }
+    .brow { display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+    .brow.last { border-bottom: none; font-weight: 600; color: var(--text-primary); font-size: 14px; }
+    .chip-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+    .chip { padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); }
+    .chip.sel { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .itr-q { margin-bottom: 1rem; }
+    .itr-q label { font-size: 13px; color: var(--text-secondary); display: block; margin-bottom: 6px; }
+    @media(max-width:600px) { .tool-grid { grid-template-columns: 1fr; } .result-cards { grid-template-columns: 1fr; } }
+  </style>
+
+  <script>
+    function showTool(id) {
+      document.querySelectorAll('.tool-panel').forEach(p=>p.style.display='none');
+      document.querySelectorAll('.tool-tab').forEach(t=>t.classList.remove('active'));
+      document.getElementById('tool-'+id).style.display='block';
+      event.target.classList.add('active');
+    }
+
+    function fmt(n) { return '₹'+Math.round(n).toLocaleString('en-IN'); }
+
+    let ay='2526';
+    function setAY(btn,v) { ay=v; btn.closest('.tool-toggle').querySelectorAll('.regime-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); calcTax(); }
+
+    function calcNewTax2526(ti) {
+      if(ti<=1200000) return 0;
+      let tax=0,slabs=[[400000,0],[400000,.05],[400000,.1],[400000,.15],[400000,.2]],rem=ti;
+      for(let[s,r]of slabs){let c=Math.min(s,rem);tax+=c*r;rem-=c;}
+      if(rem>0)tax+=rem*.3;
+      return tax;
+    }
+    function calcNewTax2425(ti) {
+      if(ti<=700000)return 0;
+      let tax=0;
+      if(ti>300000)tax+=Math.min(ti-300000,300000)*.05;
+      if(ti>600000)tax+=Math.min(ti-600000,300000)*.1;
+      if(ti>900000)tax+=Math.min(ti-900000,300000)*.15;
+      if(ti>1200000)tax+=Math.min(ti-1200000,300000)*.2;
+      if(ti>1500000)tax+=(ti-1500000)*.3;
+      return tax;
+    }
+    function calcOldTax(ti,age) {
+      let basic=age==='above80'?500000:age==='60to80'?300000:250000;
+      if(ti<=basic)return 0;
+      let tax=0;
+      tax+=Math.min(ti-basic,500000-basic)*.05;
+      if(ti>500000)tax+=Math.min(ti-500000,500000)*.2;
+      if(ti>1000000)tax+=(ti-1000000)*.3;
+      if(ti<=500000)tax=0;
+      return tax;
+    }
+    function addSurcharge(tax,income){let s=0;if(income>5000000)s=.1;if(income>10000000)s=.15;if(income>20000000)s=.25;return Math.round(tax*(1+s)*1.04);}
+
+    function calcTax() {
+      const income=parseFloat(document.getElementById('income').value)||0;
+      const age=document.getElementById('age').value;
+      const d80c=Math.min(parseFloat(document.getElementById('ded80c').value)||0,150000);
+      const d80d=parseFloat(document.getElementById('ded80d').value)||0;
+      const hra=parseFloat(document.getElementById('hra_calc').value)||0;
+      const other=parseFloat(document.getElementById('other_calc').value)||0;
+      const oldTI=Math.max(0,income-50000-d80c-d80d-hra-other);
+      const newTI=Math.max(0,income-75000);
+      const oldTotal=addSurcharge(calcOldTax(oldTI,age),income);
+      const newTotal=addSurcharge(ay==='2526'?calcNewTax2526(newTI):calcNewTax2425(newTI),income);
+      document.getElementById('old-tax').textContent=fmt(oldTotal);
+      document.getElementById('new-tax').textContent=fmt(newTotal);
+      document.getElementById('old-eff').textContent='Effective: '+(income>0?((oldTotal/income)*100).toFixed(1):0)+'%';
+      document.getElementById('new-eff').textContent='Effective: '+(income>0?((newTotal/income)*100).toFixed(1):0)+'%';
+      const w=oldTotal<=newTotal?'old':'new';
+      document.getElementById('old-badge').textContent=w==='old'?'Better for you':'';
+      document.getElementById('new-badge').textContent=w==='new'?'Better for you':'';
+      document.getElementById('old-badge').style.display=w==='old'?'inline-block':'none';
+      document.getElementById('new-badge').style.display=w==='new'?'inline-block':'none';
+      const saving=Math.abs(oldTotal-newTotal);
+      document.getElementById('tax-breakdown').innerHTML=`<div class="brow"><span>Gross Income</span><span>${fmt(income)}</span></div><div class="brow"><span>Old Regime Taxable</span><span>${fmt(oldTI)}</span></div><div class="brow"><span>New Regime Taxable</span><span>${fmt(newTI)}</span></div><div class="brow last"><span>You save ${w==='old'?'with Old':'with New'} Regime</span><span style="color:var(--green)">${fmt(saving)}</span></div>`;
+    }
+    calcTax();
+
+    const itrState={who:null,src:new Set(),income:null,res:null};
+    function selITR(btn,key,val){btn.closest('.chip-group').querySelectorAll('.chip').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');itrState[key]=val;decideITR();}
+    function togITR(btn,key,val){if(itrState[key].has(val)){itrState[key].delete(val);btn.classList.remove('sel');}else{itrState[key].add(val);btn.classList.add('sel');}decideITR();}
+    function decideITR(){
+      const{who,src,income,res}=itrState;if(!who)return;
+      let form='',desc='',points=[];
+      if(who==='firm'){form='ITR-5';desc='For firms, LLPs, AOPs and BOIs.';points=['Partnership firms and LLPs','All income sources covered','Audit report if applicable'];}
+      else if(who==='company'){form='ITR-6';desc='For companies other than Section 11 exempt entities.';points=['Mandatory e-filing','Balance sheet and P&L required','Directors DIN details required'];}
+      else{
+        if(src.has('foreign')||res==='nri'){form='ITR-2';desc='For individuals/HUFs with foreign income or NRI status.';points=['Schedule FA for foreign assets mandatory','DTAA relief claims applicable','Capital gains can be reported'];}
+        else if(src.has('business')&&(income!=='below5'||src.has('cg'))){form='ITR-3';desc='For individuals/HUFs with business/profession income.';points=['All income heads covered','Balance sheet required','Not for presumptive taxation'];}
+        else if(src.has('business')&&income==='below5'){form='ITR-4 (Sugam)';desc='For presumptive taxation u/s 44AD/44ADA/44AE.';points=['Turnover up to ₹2Cr (business) or ₹50L (profession)','8%/6% deemed profit','No detailed books required'];}
+        else if(src.has('cg')){form='ITR-2';desc='For individuals with capital gains income.';points=['STCG and LTCG details required','Multiple house properties allowed','No business income'];}
+        else if(income==='below5'&&res==='resident'&&!src.has('hp')){form='ITR-1 (Sahaj)';desc='Simplest form for salaried individuals up to ₹50 Lakh.';points=['One house property only','Savings interest income allowed','No capital gains or business income'];}
+        else{form='ITR-2';desc='For individuals without business income.';points=['Salary and multiple house properties','Capital gains can be reported','Foreign travel details if applicable'];}
+      }
+      document.getElementById('itr-result').style.display='block';
+      document.getElementById('itr-form-name').textContent=form;
+      document.getElementById('itr-form-desc').textContent=desc;
+      document.getElementById('itr-form-points').innerHTML=points.map(p=>`<div class="brow"><span style="color:var(--green);margin-right:8px">&#10003;</span><span>${p}</span></div>`).join('');
+    }
+
+    let cityPct=0.5;
+    function setCity(btn,pct){btn.closest('.tool-toggle').querySelectorAll('.regime-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');cityPct=pct;calcHRA();}
+    function calcHRA(){
+      const basic=parseFloat(document.getElementById('hra_basic').value)||0;
+      const rcvd=parseFloat(document.getElementById('hra_rcvd').value)||0;
+      const rent=parseFloat(document.getElementById('hra_rent').value)||0;
+      const c1=rcvd,c2=Math.max(0,rent-basic*.1),c3=basic*cityPct;
+      document.getElementById('h1').textContent=fmt(c1);
+      document.getElementById('h2').textContent=fmt(c2);
+      document.getElementById('h3').textContent=fmt(c3);
+      const exempt=Math.min(c1,c2,c3);
+      document.getElementById('h_exempt').textContent=fmt(exempt);
+      document.getElementById('h_taxable').textContent=fmt(rcvd-exempt);
+      document.getElementById('h_saved').textContent=fmt(exempt*.3);
+    }
+    calcHRA();
+
+    let tdsRegime='new';
+    function setTDSRegime(btn,r){btn.closest('.tool-toggle').querySelectorAll('.regime-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');tdsRegime=r;document.getElementById('t_dec_field').style.opacity=r==='old'?'1':'0.4';calcTDS();}
+    function calcTDS(){
+      const basic=(parseFloat(document.getElementById('t_basic').value)||0)*12;
+      const hra=(parseFloat(document.getElementById('t_hra').value)||0)*12;
+      const spec=(parseFloat(document.getElementById('t_spec').value)||0)*12;
+      const other=(parseFloat(document.getElementById('t_other').value)||0)*12;
+      const dec=parseFloat(document.getElementById('t_dec').value)||0;
+      const gross=basic+hra+spec+other;
+      const std=tdsRegime==='new'?75000:50000;
+      const deductions=tdsRegime==='old'?dec:0;
+      const ti=Math.max(0,gross-std-deductions);
+      const annualTax=addSurcharge(tdsRegime==='new'?calcNewTax2526(ti):calcOldTax(ti,'below60'),gross);
+      const monthly=Math.round(annualTax/12);
+      document.getElementById('t_gross').textContent=fmt(gross);
+      document.getElementById('t_annual').textContent=fmt(annualTax);
+      document.getElementById('t_monthly').textContent=fmt(monthly);
+      document.getElementById('tr1').textContent=fmt(gross);
+      document.getElementById('tr2').textContent=fmt(std);
+      document.getElementById('tr3').textContent=fmt(deductions);
+      document.getElementById('tr4').textContent=fmt(ti);
+      document.getElementById('tr5').textContent=fmt(monthly);
+    }
+    calcTDS();
+  </script>
+
   <!-- CONTACT -->
   <section id="contact">
     <div class="section-inner">
@@ -541,6 +855,7 @@
     <div class="footer-links">
       <a href="#about">About</a>
       <a href="#services">Services</a>
+      <a href="#tools">Tax Tools</a>
       <a href="#testimonials">Testimonials</a>
       <a href="#contact">Contact</a>
       <a href="https://topmate.io/capulkitgarg" target="_blank" rel="noopener">Book a Session</a>
