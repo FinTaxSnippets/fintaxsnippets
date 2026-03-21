@@ -573,8 +573,9 @@
           </div>
           <div class="itr-q"><label>Total Income</label>
             <div class="chip-group">
-              <button class="chip" onclick="selITR(this,'income','below5')">Below ₹5 Lakh</button>
-              <button class="chip" onclick="selITR(this,'income','above5')">₹5 Lakh &amp; above</button>
+              <button class="chip" onclick="selITR(this,'income','below50')">Below ₹50 Lakh</button>
+              <button class="chip" onclick="selITR(this,'income','50to1cr')">₹50 Lakh – ₹1 Crore</button>
+              <button class="chip" onclick="selITR(this,'income','above1cr')">Above ₹1 Crore</button>
             </div>
           </div>
           <div class="itr-q"><label>Residential Status</label>
@@ -650,31 +651,31 @@
   </section>
 
   <style>
-    .tool-tab { padding: 8px 18px; border-radius: 20px; font-size: 14px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); transition: all 0.2s; }
+    .tool-tab { padding: 10px 22px; border-radius: 20px; font-size: 15px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); transition: all 0.2s; }
     .tool-tab.active { background: var(--blue); color: #fff; border-color: var(--blue); }
-    .tool-panel { background: var(--bg-secondary); border-radius: 16px; padding: 2rem; }
-    .tool-inner { max-width: 700px; }
-    .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
-    .tool-field { display: flex; flex-direction: column; gap: 4px; }
-    .tool-field label { font-size: 12px; color: var(--text-secondary); }
-    .tool-field input, .tool-field select { padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; background: var(--bg); color: var(--text-primary); }
-    .tool-toggle { display: flex; gap: 8px; margin-bottom: 1.5rem; flex-wrap: wrap; }
-    .regime-btn { padding: 6px 16px; border-radius: 20px; font-size: 13px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); }
+    .tool-panel { background: var(--bg-secondary); border-radius: 16px; padding: 2.5rem; }
+    .tool-inner { max-width: 100%; }
+    .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 1.5rem; }
+    .tool-field { display: flex; flex-direction: column; gap: 6px; }
+    .tool-field label { font-size: 14px; color: var(--text-secondary); font-weight: 500; }
+    .tool-field input, .tool-field select { padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px; font-size: 16px; background: var(--bg); color: var(--text-primary); width: 100%; }
+    .tool-toggle { display: flex; gap: 10px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .regime-btn { padding: 8px 20px; border-radius: 20px; font-size: 14px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); }
     .regime-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
-    .result-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1rem; }
-    .result-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; }
-    .result-label { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
-    .result-val { font-size: 22px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
-    .result-sub { font-size: 12px; color: var(--text-muted); }
-    .winner-badge { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; background: var(--green-light); color: var(--green-dark); }
-    .breakdown-box { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; }
-    .brow { display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
-    .brow.last { border-bottom: none; font-weight: 600; color: var(--text-primary); font-size: 14px; }
-    .chip-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-    .chip { padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); }
+    .result-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 1.5rem; }
+    .result-card { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+    .result-label { font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+    .result-val { font-size: 28px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+    .result-sub { font-size: 13px; color: var(--text-muted); }
+    .winner-badge { display: inline-block; font-size: 12px; padding: 4px 12px; border-radius: 20px; font-weight: 500; background: var(--green-light); color: var(--green-dark); margin-top: 6px; }
+    .breakdown-box { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; }
+    .brow { display: flex; justify-content: space-between; font-size: 15px; padding: 10px 0; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+    .brow.last { border-bottom: none; font-weight: 600; color: var(--text-primary); font-size: 16px; }
+    .chip-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .chip { padding: 8px 18px; border-radius: 20px; font-size: 14px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text-secondary); }
     .chip.sel { background: var(--blue); color: #fff; border-color: var(--blue); }
-    .itr-q { margin-bottom: 1rem; }
-    .itr-q label { font-size: 13px; color: var(--text-secondary); display: block; margin-bottom: 6px; }
+    .itr-q { margin-bottom: 1.25rem; }
+    .itr-q label { font-size: 14px; color: var(--text-secondary); display: block; margin-bottom: 8px; font-weight: 500; }
     @media(max-width:600px) { .tool-grid { grid-template-columns: 1fr; } .result-cards { grid-template-columns: 1fr; } }
   </style>
 
@@ -755,11 +756,11 @@
       else if(who==='company'){form='ITR-6';desc='For companies other than Section 11 exempt entities.';points=['Mandatory e-filing','Balance sheet and P&L required','Directors DIN details required'];}
       else{
         if(src.has('foreign')||res==='nri'){form='ITR-2';desc='For individuals/HUFs with foreign income or NRI status.';points=['Schedule FA for foreign assets mandatory','DTAA relief claims applicable','Capital gains can be reported'];}
-        else if(src.has('business')&&(income!=='below5'||src.has('cg'))){form='ITR-3';desc='For individuals/HUFs with business/profession income.';points=['All income heads covered','Balance sheet required','Not for presumptive taxation'];}
-        else if(src.has('business')&&income==='below5'){form='ITR-4 (Sugam)';desc='For presumptive taxation u/s 44AD/44ADA/44AE.';points=['Turnover up to ₹2Cr (business) or ₹50L (profession)','8%/6% deemed profit','No detailed books required'];}
-        else if(src.has('cg')){form='ITR-2';desc='For individuals with capital gains income.';points=['STCG and LTCG details required','Multiple house properties allowed','No business income'];}
-        else if(income==='below5'&&res==='resident'&&!src.has('hp')){form='ITR-1 (Sahaj)';desc='Simplest form for salaried individuals up to ₹50 Lakh.';points=['One house property only','Savings interest income allowed','No capital gains or business income'];}
-        else{form='ITR-2';desc='For individuals without business income.';points=['Salary and multiple house properties','Capital gains can be reported','Foreign travel details if applicable'];}
+        else if(src.has('business')&&(income==='50to1cr'||income==='above1cr'||src.has('cg'))){form='ITR-3';desc='For individuals/HUFs with business/profession income exceeding presumptive limits.';points=['All income heads covered','Balance sheet and P&L required','Applicable when turnover exceeds ₹2Cr or audit is required'];}
+        else if(src.has('business')&&income==='below50'){form='ITR-4 (Sugam)';desc='For presumptive taxation u/s 44AD/44ADA/44AE — income below ₹50 Lakh.';points=['Turnover up to ₹2Cr (business) or ₹50L (profession)','8%/6% of turnover deemed as profit','No detailed books of accounts required'];}
+        else if(src.has('cg')||income==='50to1cr'||income==='above1cr'){form='ITR-2';desc='For individuals/HUFs with capital gains or income above ₹50 Lakh.';points=['STCG and LTCG details required','Multiple house properties allowed','No business/profession income'];}
+        else if(income==='below50'&&res==='resident'&&!src.has('hp')&&!src.has('cg')&&!src.has('business')&&!src.has('foreign')){form='ITR-1 (Sahaj)';desc='Simplest form — for salaried residents with total income up to ₹50 Lakh.';points=['Only one house property allowed','Interest from savings account allowed','Cannot have capital gains or business income','Agricultural income up to ₹5,000 allowed'];}
+        else{form='ITR-2';desc='For individuals/HUFs without business income — multiple income sources.';points=['Salary and multiple house properties','Capital gains can be reported','Foreign travel details if applicable'];}
       }
       document.getElementById('itr-result').style.display='block';
       document.getElementById('itr-form-name').textContent=form;
