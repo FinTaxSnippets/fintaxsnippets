@@ -692,15 +692,27 @@
     let ay='2526';
     function setAY(btn,v) { ay=v; btn.closest('.tool-toggle').querySelectorAll('.regime-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); calcTax(); }
 
-    function calcNewTax2526(ti) {
-      if(ti<=1200000) return 0;
-      let tax=0,slabs=[[400000,0],[400000,.05],[400000,.1],[400000,.15],[400000,.2]],rem=ti;
-      for(let[s,r]of slabs){let c=Math.min(s,rem);tax+=c*r;rem-=c;}
-      if(rem>0)tax+=rem*.3;
+    function calcRawNewTax2526(ti) {
+      if(ti<=400000) return 0;
+      let tax=0,rem=ti-400000;
+      const slabs=[[400000,.05],[400000,.1],[400000,.15],[400000,.2],[Infinity,.3]];
+      for(let[s,r]of slabs){let c=Math.min(s,rem);tax+=c*r;rem-=c;if(rem<=0)break;}
       return tax;
     }
-    function calcNewTax2425(ti) {
-      if(ti<=700000)return 0;
+    function calcNewTax2526(ti) {
+      if(ti<=1200000) return 0;
+      let tax=calcRawNewTax2526(ti);
+      const marginal=Math.max(0,ti-1200000);
+      tax=Math.min(tax,marginal);
+      if(ti<=1275000){
+        const taxAt1275=calcRawNewTax2526(1275000);
+        const marginal2=Math.max(0,ti-1275000);
+        tax=Math.min(tax,taxAt1275+marginal2);
+      }
+      return tax;
+    }
+    function calcRawNewTax2425(ti) {
+      if(ti<=300000) return 0;
       let tax=0;
       if(ti>300000)tax+=Math.min(ti-300000,300000)*.05;
       if(ti>600000)tax+=Math.min(ti-600000,300000)*.1;
@@ -709,17 +721,44 @@
       if(ti>1500000)tax+=(ti-1500000)*.3;
       return tax;
     }
+    function calcNewTax2425(ti) {
+      if(ti<=700000) return 0;
+      let tax=calcRawNewTax2425(ti);
+      const marginal=Math.max(0,ti-700000);
+      return Math.min(tax,marginal);
+    }
     function calcOldTax(ti,age) {
       let basic=age==='above80'?500000:age==='60to80'?300000:250000;
-      if(ti<=basic)return 0;
+      if(ti<=basic) return 0;
       let tax=0;
       tax+=Math.min(ti-basic,500000-basic)*.05;
       if(ti>500000)tax+=Math.min(ti-500000,500000)*.2;
       if(ti>1000000)tax+=(ti-1000000)*.3;
-      if(ti<=500000)tax=0;
+      if(ti<=500000) tax=0;
+      if(age!=='above80'&&ti>500000&&ti<=500000+12500){
+        const marginal=Math.max(0,ti-500000);
+        tax=Math.min(tax,marginal);
+      }
       return tax;
     }
-    function addSurcharge(tax,income){let s=0;if(income>5000000)s=.1;if(income>10000000)s=.15;if(income>20000000)s=.25;return Math.round(tax*(1+s)*1.04);}
+    function addSurcharge(tax,income){
+      let surRate=0;
+      if(income>5000000) surRate=0.1;
+      if(income>10000000) surRate=0.15;
+      if(income>20000000) surRate=0.25;
+      if(income>50000000) surRate=0.37;
+      let sur=tax*surRate;
+      const surThresholds=[[5000000,0.1],[10000000,0.15],[20000000,0.25],[50000000,0.37]];
+      for(let[thresh,rate]of surThresholds){
+        if(income>thresh){
+          const prevTax=income===thresh?tax:tax;
+          const maxSur=(income-thresh);
+          if(sur>maxSur) sur=maxSur;
+        }
+      }
+      const cess=(tax+sur)*0.04;
+      return Math.round(tax+sur+cess);
+    }
 
     function calcTax() {
       const income=parseFloat(document.getElementById('income').value)||0;
