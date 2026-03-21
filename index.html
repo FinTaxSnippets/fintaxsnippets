@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CA Pulkit Garg | Tax Filing & Advisory | FinTaxSnippets</title>
+  <meta name="description" content="Expert ITR filing, tax planning, and Form 26AS/AIS review by CA Pulkit Garg. Serving clients PAN India. Simplifying Taxes, Maximizing Savings." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #1B6CB0;
+      --blue-light: #EBF3FB;
+      --blue-mid: #B5D4F4;
+      --green: #2EAD6B;
+      --green-light: #E8F7F1;
+      --green-dark: #0F6E56;
+      --text-primary: #1a1a1a;
+      --text-secondary: #4a4a4a;
+      --text-muted: #888;
+      --border: #e0e0e0;
+      --bg: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      color: var(--text-primary);
+      background: var(--bg);
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+    }
+
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .logo-fin { color: var(--green); }
+    .logo-tax { color: var(--blue); }
+    .logo-rest { color: var(--text-secondary); }
+
+    .nav-links { display: flex; align-items: center; gap: 10px; }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 0.55rem 1.25rem;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #155a99; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+      border-radius: var(--radius-sm);
+      padding: 0.55rem 1.25rem;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { background: var(--blue-light); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #EBF3FB 0%, #E8F7F1 100%);
+      padding: 5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: rgba(27,108,176,0.07);
+    }
+
+    .hero-inner { max-width: 680px; position: relative; z-index: 1; }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 3rem; }
+
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(27,108,176,0.2);
+    }
+
+    .stat-item { text-align: left; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--blue);
+    }
+    .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    /* ── SECTIONS ── */
+    section { padding: 4rem 2rem; }
+    section:nth-child(even) { background: var(--bg-secondary); }
+
+    .section-inner { max-width: 800px; margin: 0 auto; }
+
+    .section-badge {
+      display: inline-block;
+      background: var(--green-light);
+      color: var(--green-dark);
+      border-radius: 20px;
+      font-size: 11px;
+      padding: 4px 12px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-badge.blue {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .section-body {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── CHIPS ── */
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.25rem; }
+    .chip {
+      background: var(--blue-light);
+      color: var(--blue);
+      border-radius: 20px;
+      font-size: 12px;
+      padding: 5px 14px;
+      font-weight: 500;
+    }
+
+    /* ── SERVICES GRID ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .service-card:hover {
+      box-shadow: 0 4px 20px rgba(27,108,176,0.1);
+      transform: translateY(-2px);
+    }
+
+    .service-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 1rem;
+    }
+    .icon-blue { background: var(--blue-light); }
+    .icon-green { background: var(--green-light); }
+
+    .service-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .service-card p {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 1.5rem;
+    }
+
+    .testi-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      border-top: 3px solid var(--green);
+    }
+
+    .testi-text {
+      font-size: 14px;
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .testi-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* ── CONTACT ── */
+    .contact-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin: 1.5rem 0;
+    }
+
+    .contact-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .contact-card-icon {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .contact-card-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .contact-card-value {
+      font-size: 14px;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .contact-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 1.5rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--text-primary);
+      color: #ccc;
+      text-align: center;
+      padding: 2rem;
+      font-size: 13px;
+    }
+
+    footer .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    footer .footer-tagline { color: #888; font-size: 12px; margin-bottom: 1rem; }
+    footer .footer-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    footer .footer-links a { color: #aaa; text-decoration: none; font-size: 13px; }
+    footer .footer-links a:hover { color: #fff; }
+    footer .footer-copy { color: #666; font-size: 12px; }
+
+    /* ── WHATSAPP FLOAT ── */
+    .wa-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+      text-decoration: none;
+      font-size: 26px;
+      transition: transform 0.2s;
+    }
+    .wa-float:hover { transform: scale(1.1); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-inner > * {
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-eyebrow { animation-delay: 0.1s; }
+    .hero h1      { animation-delay: 0.2s; }
+    .hero p       { animation-delay: 0.3s; }
+    .hero-ctas    { animation-delay: 0.4s; }
+    .hero-stats   { animation-delay: 0.5s; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      nav { padding: 0.75rem 1rem; }
+      .nav-links .btn-outline { display: none; }
+      .hero { padding: 3rem 1.25rem 2.5rem; }
+      section { padding: 3rem 1.25rem; }
+      .hero-stats { gap: 1.5rem; }
+      footer { padding: 1.5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="logo-text" href="#">
+      <span class="logo-fin">Fin</span><span class="logo-tax">Tax</span><span class="logo-rest">Snippets</span>
+    </a>
+    <div class="nav-links">
+      <a class="btn-outline" href="#services">Services</a>
+      <a class="btn-primary" href="https://topmate.io/capulkitgarg" target="_blank" rel="noopener">Book a Session</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Chartered Accountants &nbsp;·&nbsp; PAN India Services</div>
+      <h1>Your Trusted Partner for<br>Tax Filing &amp; Financial Clarity</h1>
+      <p>Expert-led tax advisory and ITR filing services, delivered with precision and care. Simplifying Taxes, Maximizing Savings — for salaried professionals, freelancers, and businesses across India.</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="https://topmate.io/capulkitgarg" target="_blank" rel="noopener">Book a Free Consultation</a>
+        <a class="btn-outline" href="#services">Explore Services</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">200+</div>
+          <div class="stat-label">Clients Served</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">PAN India</div>
+          <div class="stat-label">Service Reach</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">CA Qualified</div>
+          <div class="stat-label">Direct Tax Expert</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="section-badge">About</div>
+      <h2>Meet CA Pulkit Garg</h2>
+      <p class="section-body">I am a Chartered Accountant specialising in Direct Taxation, with hands-on experience in tax advisory, ITR filing, and TDS/TCS compliance for individual clients across India. Beyond my practice, I work as a Senior Business Analyst on a CBDT Tax-Tech project at LTIMindtree — bringing both regulatory depth and real-world implementation experience to every client engagement.</p>
+      <p class="section-body">Through FinTaxSnippets, I make tax knowledge accessible — via content on YouTube, Instagram, and LinkedIn — and provide personalised advisory that helps you pay what you owe, and not a rupee more.</p>
+      <div class="chips">
+        <span class="chip">Direct Taxation</span>
+        <span class="chip">ITR Filing</span>
+        <span class="chip">TDS / TCS</span>
+        <span class="chip">CBDT Tax-Tech</span>
+        <span class="chip">Tax Planning</span>
+        <span class="chip">Form 26AS / AIS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-inner">
+      <div class="section-badge blue">Services</div>
+      <h2>How I Can Help You</h2>
+      <p class="section-body">All services are available remotely, PAN India. No physical visit required — everything is handled securely online.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon icon-blue">📋</div>
+          <h3>ITR Filing</h3>
+          <p>Accurate and timely Income Tax Return filing for salaried employees, freelancers, and individuals with capital gains, rental income, or multiple income sources.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon icon-green">💡</div>
+          <h3>Tax Planning &amp; Savings</h3>
+          <p>Strategic advisory to maximise deductions under Sections 80C, 80D, HRA, NPS, and more — ensuring you save the most within legal provisions.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon icon-blue">🔍</div>
+          <h3>Form 26AS / AIS Review</h3>
+          <p>Thorough review of your Annual Information Statement and Tax Credit Statement to identify discrepancies before filing and avoid notices from the Income Tax Department.</p>
+        </div>
+      </div>
+      <div style="margin-top: 2rem;">
+        <a class="btn-primary" href="https://topmate.io/capulkitgarg" target="_blank" rel="noopener">Book a Session on Topmate</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="section-inner">
+      <div class="section-badge">Testimonials</div>
+      <h2>What Clients Say</h2>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <p class="testi-text">"CA Pulkit helped me file my ITR with multiple income sources — freelance, salary, and mutual fund gains. Very thorough and responsive. Highly recommended."</p>
+          <div class="testi-name">— Rahul M., Software Engineer, Bengaluru</div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-text">"I had a mismatch in my 26AS and was worried about an IT notice. Pulkit reviewed everything, explained it clearly, and helped me respond correctly. Excellent service."</p>
+          <div class="testi-name">— Priya S., HR Professional, Delhi NCR</div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-text">"Finally understood how to save tax beyond 80C! The tax planning session was worth every rupee. Very practical and personalised advice."</p>
+          <div class="testi-name">— Amit K., Government Employee, Lucknow</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="section-badge blue">Contact &amp; Book</div>
+      <h2>Let's Get Started</h2>
+      <p class="section-body">Book a consultation directly through Topmate or reach out on WhatsApp. All services are available PAN India — no physical visit required.</p>
+      <div class="contact-cards">
+        <div class="contact-card">
+          <div class="contact-card-icon" style="background: var(--blue-light);">🔗</div>
+          <div>
+            <div class="contact-card-label">Book Online</div>
+            <div class="contact-card-value">topmate.io/capulkitgarg</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon" style="background: var(--green-light);">💬</div>
+          <div>
+            <div class="contact-card-label">WhatsApp</div>
+            <div class="contact-card-value">+91 XXXXX XXXXX</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon" style="background: var(--blue-light);">🎬</div>
+          <div>
+            <div class="contact-card-label">Content</div>
+            <div class="contact-card-value">@FinTaxSnippets</div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-ctas">
+        <a class="btn-primary" href="https://topmate.io/capulkitgarg" target="_blank" rel="noopener">Book on Topmate</a>
+        <a class="btn-outline" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">WhatsApp Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <span style="color:#2EAD6B;">Fin</span><span style="color:#6AAEE0;">Tax</span><span style="color:#aaa;">Snippets</span>
+    </div>
+    <div class="footer-tagline">Simplifying Taxes, Maximizing Savings</div>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#contact">Contact</a>
+      <a href="https://topmate.io/capulkitgarg" target="_blank" rel="noopener">Book a Session</a>
+    </div>
+    <div class="footer-copy">© 2025 FinTaxSnippets · CA Pulkit Garg · All Rights Reserved</div>
+  </footer>
+
+  <!-- WHATSAPP FLOAT BUTTON -->
+  <a class="wa-float" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener" title="Chat on WhatsApp">💬</a>
+
+</body>
+</html>
