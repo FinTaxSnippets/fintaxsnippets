@@ -30,6 +30,7 @@
   --card: #ffffff;
   --nav-bg: rgba(245,244,239,0.95);
   --toggle-bg: #d8d7d0;
+  --dot-color: #c8c7c0;
   --radius: 14px;
   --radius-sm: 8px;
 }
@@ -45,10 +46,19 @@
   --card: #161b27;
   --nav-bg: rgba(15,17,23,0.95);
   --toggle-bg: #2a2f3e;
+  --dot-color: #1e2330;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;transition:background 0.3s,color 0.3s;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background-color:var(--bg);
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color:var(--text);
+  line-height:1.7;
+  transition:background-color 0.3s,color 0.3s;
+}
 
 /* NAV */
 nav{position:sticky;top:0;z-index:100;background:var(--nav-bg);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0.75rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
@@ -238,7 +248,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem;t
       <span class="toggle-label" id="toggle-label">☀️</span>
       <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode"></button>
     </div>
-    <a class="btn-primary" href="https://topmate.io/capulkitgarg" target="_blank" rel="noopener">Book a Consultation</a>
+    <a class="btn-primary" href="https://topmate.io/capulkitgarg" target="_blank" rel="noopener">Work With Me</a>
   </div>
 </nav>
 
@@ -251,7 +261,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem;t
         <h1>Making Taxation &amp; Finance<br><span>Simple For Everyone</span></h1>
         <p class="lead">Expert ITR filing, tax planning and advisory by CA Pulkit Garg. Simplifying Taxes, Maximizing Savings — for salaried professionals, freelancers and businesses across India.</p>
         <div class="hero-btns">
-          <a class="btn-primary" href="https://topmate.io/capulkitgarg" target="_blank" rel="noopener">Book a Consultation</a>
+          <a class="btn-primary" href="https://topmate.io/capulkitgarg" target="_blank" rel="noopener">Book a Free Consultation</a>
           <a class="btn-ghost" href="#services-detail">Explore Services</a>
         </div>
       </div>
@@ -383,9 +393,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem;t
       <span class="fy-label">Financial Year:</span>
       <div style="display:flex;gap:8px;">
         <button class="regime-btn active" id="fy-btn-2526" onclick="setGlobalFY(this,'2526')">FY 2025-26</button>
-        <button class="regime-btn" id="fy-btn-2627" onclick="setGlobalFY(this,'2627')">FY 2026-27</button>
+        <button class="regime-btn" id="fy-btn-2627" onclick="setGlobalFY(this,'2627')">Tax Year 2026-27</button>
       </div>
-      <span class="fy-note" id="fy-note">AY 2026-27 · All calculators updated automatically</span>
+      <span class="fy-note" id="fy-note">AY 2026-27 · Under Income Tax Act, 1961</span>
     </div>
 
     <div class="tool-tabs">
@@ -648,7 +658,7 @@ function setGlobalFY(btn,v){
   ay=v;
   document.querySelectorAll('[id^="fy-btn-"]').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('fy-note').textContent=v==='2526'?'AY 2026-27 · All calculators updated automatically':'AY 2027-28 · All calculators updated automatically';
+  document.getElementById('fy-note').textContent=v==='2526'?'AY 2026-27 · Under Income Tax Act, 1961':'Tax Year 2026-27 · Under Income Tax Act, 2025 (FY/AY concept removed)';
   calcTax();
   buildCityDropdown(v);
   document.getElementById('hra_city_note').textContent=v==='2627'?'FY 2026-27: Bengaluru, Hyderabad, Pune & Ahmedabad added as Metro — 50% HRA applicable':'FY 2025-26: Only Delhi, Mumbai, Kolkata & Chennai are Metro — 50% HRA applicable';
