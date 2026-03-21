@@ -712,7 +712,8 @@
     function fmt(n) { return '₹'+Math.round(n).toLocaleString('en-IN'); }
 
     let ay='2526';
-    function setAY(btn,v) { ay=v; btn.closest('.tool-toggle').querySelectorAll('.regime-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); calcTax(); }(ti) {
+    function setAY(btn,v) { ay=v; btn.closest('.tool-toggle').querySelectorAll('.regime-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); calcTax(); }
+    function calcRawNewTax2526(ti) {
       if(ti<=400000) return 0;
       let tax=0,rem=ti-400000;
       const slabs=[[400000,.05],[400000,.1],[400000,.15],[400000,.2],[Infinity,.3]];
