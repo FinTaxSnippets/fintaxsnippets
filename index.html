@@ -1140,6 +1140,13 @@ const counterObs=new IntersectionObserver((entries)=>{
   });
 },{threshold:0.5});
 document.querySelectorAll('.counter').forEach(el=>counterObs.observe(el));
+// Also trigger immediately for above-the-fold counters
+setTimeout(()=>{
+  document.querySelectorAll('.counter').forEach(el=>{
+    const rect=el.getBoundingClientRect();
+    if(rect.top<window.innerHeight)animateCounter(el);
+  });
+},500);
 
 // TESTIMONIAL CAROUSEL
 let testiIndex=0;
