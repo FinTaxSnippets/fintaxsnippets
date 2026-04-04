@@ -1173,16 +1173,25 @@ loadMediumPosts(); -->
 
 // ANIMATED COUNTERS
 function animateCounter(el){
-  const target=parseInt(el.dataset.target);
-  const suffix=el.dataset.suffix||'';
-  const duration=1500;
-  const step=target/duration*16;
-  let current=0;
-  const timer=setInterval(()=>{
-    current=Math.min(current+step,target);
-    el.textContent=Math.floor(current)+suffix;
-    if(current>=target)clearInterval(timer);
-  },16);
+  if (el.dataset.animated === "true") return; // prevent multiple runs
+  el.dataset.animated = "true";
+
+  const target = parseInt(el.dataset.target);
+  const suffix = el.dataset.suffix || "";
+  const duration = 1500;
+  let start = 0;
+
+  const stepTime = Math.max(Math.floor(duration / target), 10);
+
+  const timer = setInterval(() => {
+    start++;
+    el.textContent = start + suffix;
+
+    if (start >= target) {
+      el.textContent = target + suffix;
+      clearInterval(timer);
+    }
+  }, stepTime);
 }
 
 // SCROLL FADE-UP ANIMATIONS
