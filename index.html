@@ -1228,5 +1228,42 @@ window.addEventListener('resize',updateCarousel);
     📩 File My ITR Now
   </a>
 </div>
+  <script>
+const track = document.getElementById("testiTrack");
+const cards = document.querySelectorAll(".testi-card-v2");
+
+let index = 0;
+const total = cards.length;
+
+function updateCarousel() {
+  const cardWidth = cards[0].offsetWidth + 16; // 16 = gap
+  track.style.transform = `translateX(-${index * cardWidth}px)`;
+}
+
+// NEXT
+function nextTestimonial() {
+  if (index < total - 2) {
+    index++;
+  } else {
+    index = 0;
+  }
+  updateCarousel();
+}
+
+// PREV
+function prevTestimonial() {
+  if (index > 0) {
+    index--;
+  } else {
+    index = total - 2;
+  }
+  updateCarousel();
+}
+
+// AUTO SLIDE
+setInterval(() => {
+  nextTestimonial();
+}, 4000);
+</script>
 </body>
 </html>
