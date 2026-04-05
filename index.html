@@ -1,6 +1,26 @@
+
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "ProfessionalService",
+ "name": "FinTaxSnippets",
+ "image": "https://fintaxsnippets.com/logo.png",
+ "url": "https://fintaxsnippets.com",
+ "telephone": "+91-8265860757",
+ "address": {
+   "@type": "PostalAddress",
+   "addressCountry": "India"
+ },
+ "sameAs": [
+   "https://www.instagram.com/fintaxsnippets",
+   "https://www.linkedin.com/in/capulkitgarg"
+ ]
+}
+</script>
+<link rel="preload" href="FinTaxSnippets_Logo.png" as="image">
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>ITR Filing Online FY 2025-26 | Income Tax Calculator & Advisory | CA Pulkit Garg | FinTaxSnippets</title>
@@ -24,21 +44,27 @@
 </script>
 <style>
 :root {
-  --bg: #f5f4ef;
-  --bg2: #eeede7;
-  --bg3: #e6e5df;
+  --bg: #f7f8fa;
+  --bg2: #eef2f6;
+  --bg3: #e4e9f0;
+
   --text: #1a1a1a;
   --text2: #555;
-  --text3: #888;
-  --border: #d8d7d0;
-  --green: #2EAD6B;
-  --green-dark: #1d8a52;
-  --green-bg: #e8f7f0;
-  --blue: #1B6CB0;
+  --text3: #777;
+
+  --border: #d6dbe3;
+
+  --green: #0B3C5D; /* ICAI Blue */
+  --green-dark: #082c44;
+  --blue: #1E3A8A;
+
+  --accent: #C9A227; /* Gold */
+
+  --green-bg: #e6eef5;
+
   --card: #ffffff;
-  --nav-bg: rgba(245,244,239,0.95);
-  --toggle-bg: #d8d7d0;
-  --dot-color: #c8c7c0;
+  --nav-bg: rgba(255,255,255,0.95);
+
   --radius: 14px;
   --radius-sm: 8px;
 }
@@ -92,7 +118,7 @@ nav{position:sticky;top:0;z-index:100;background:var(--nav-bg);backdrop-filter:b
 
 /* LAYOUT */
 .wrap{max-width:960px;margin:0 auto;padding:0 2.5rem;}
-.sec{padding:4.5rem 0;}
+.sec{padding:5rem 0;}
 .sec-inner{max-width:960px;margin:0 auto;padding:0 2.5rem;}
 .divider{height:1px;background:var(--border);}
 .sec-badge{display:inline-block;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;color:var(--green);border:1px solid var(--border);background:var(--green-bg);padding:4px 12px;border-radius:20px;margin-bottom:0.75rem;}
@@ -104,10 +130,11 @@ h2{font-family:'Playfair Display',serif;font-size:clamp(22px,3vw,32px);font-weig
 .col2-rev{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;}
 
 /* HERO */
-.hero{padding:5rem 0 4rem;background:var(--bg);}
+.hero{padding:6rem 0 5rem;background:var(--bg);}
 .hero-eyebrow{font-size:12px;letter-spacing:0.12em;color:var(--green);text-transform:uppercase;font-weight:600;margin-bottom:1rem;}
 .hero-btns{display:flex;gap:12px;margin-bottom:3rem;flex-wrap:wrap;}
-.hero-stat-panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;}
+.hero-stat-panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+transition: all 0.3s ease;}
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .stat-box{background:var(--bg2);border-radius:10px;padding:1.25rem;text-align:center;}
 .stat-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--green);}
@@ -130,8 +157,10 @@ h2{font-family:'Playfair Display',serif;font-size:clamp(22px,3vw,32px);font-weig
 
 /* SERVICE CARDS */
 .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:1.5rem;}
-.svc-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;transition:border-color 0.2s,transform 0.2s;}
-.svc-card:hover{border-color:var(--green);transform:translateY(-2px);}
+.svc-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;transition:border-color 0.2s,transform 0.2s;box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+transition: all 0.3s ease; }
+.svc-card:hover{border-color:var(--green);transform:translateY(-2px); transform: translateY(-4px);
+box-shadow: 0 14px 40px rgba(0,0,0,0.08);}
 .svc-icon{width:46px;height:46px;border-radius:10px;background:var(--green-bg);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;}
 .svc-icon svg{width:22px;height:22px;}
 .svc-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:0.5rem;}
@@ -248,8 +277,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem;t
 /* WHY SECTION */
 .why-sec{background:var(--bg2);}
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:1.5rem;}
-.why-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;transition:border-color 0.2s,transform 0.2s;}
-.why-card:hover{border-color:var(--green);transform:translateY(-2px);}
+.why-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;transition:border-color 0.2s,transform 0.2s; box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+transition: all 0.3s ease;}
+.why-card:hover{border-color:var(--green);transform:translateY(-2px); transform: translateY(-4px);
+box-shadow: 0 14px 40px rgba(0,0,0,0.08);}
 .why-icon{font-size:22px;margin-bottom:10px;}
 .why-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;}
 .why-desc{font-size:13px;color:var(--text3);line-height:1.6;}
@@ -380,15 +411,16 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.5rem;t
     <div class="col2">
       <div>
         <div class="hero-eyebrow">Chartered Accountant · CBDT Tax-Tech Expert · PAN India</div>
-        <h1>Save Maximum Tax Legally — Expert ITR Filing by CA</h1>
+        <h1>Professional ITR Filing & Tax Advisory</h1>
 
 <p class="lead">
-ITR Filing & Tax Advisory for:
-  
-• Salaried Professionals  
-• Freelancers & Consultants  
-• Traders & Investors  
+For Salaried • Freelancers • Traders 
+ 
+<span style="color:var(--green);font-weight:600;">
+Assisted 200+ Individuals Across India
+</span>
 </p>
+
     <!--    <p style="font-size:13px;color:var(--text3);margin-top:10px;">
 Experienced in Direct Taxation | Experienced in Direct Taxation | ✔ Response within 2 Hours
 </p> -->
@@ -400,19 +432,27 @@ Experienced in Direct Taxation | Experienced in Direct Taxation | ✔ Response w
   <a class="btn-ghost" href="https://calendly.com/capulkitgarg" target="_blank">
     📅 Schedule Call
   </a>
+  
+  <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:20px;font-size:13px;color:var(--text2);">
+  <span>✔ 200+ Clients Served</span>
+  <span>✔ PAN India Services</span>
+  <span>✔ 5★ Rated on Google</span>
+  <span>✔ ICAI Qualified CA</span>
+</div>
+  
 </div>
       </div>
-      <div>
+      <!-- <div>
         <div class="hero-stat-panel">
           <div class="stat-grid">
             <div class="stat-box"><div class="stat-num counter" data-target="200" data-suffix="+">0+</div><div class="stat-label">Clients Served</div></div>
             <div class="stat-box"><div class="stat-num">5 ★</div><div class="stat-label">Google Rating</div></div>
             <div class="stat-box"><div class="stat-num">PAN India</div><div class="stat-label">Service Reach</div></div>
             <div class="stat-box"><div class="stat-num">CA</div><div class="stat-label">ICAI Qualified</div></div>
-          </div>
+          </div> -->
           <div class="stat-trusted" style="margin-top:12px;">
             <!-- ADD YOUR GOOGLE BUSINESS LINK BELOW -->
-            <a href="https://share.google/lzfNvJQ6Jl5Xmna3X" target="_blank" rel="noopener" style="color:var(--green);font-size:12px;font-weight:600;text-decoration:none;">★ Verified on Google — See all reviews →</a>
+           <!-- <a href="https://share.google/lzfNvJQ6Jl5Xmna3X" target="_blank" rel="noopener" style="color:var(--green);font-size:12px;font-weight:600;text-decoration:none;">★ Verified on Google — See all reviews →</a> -->
           </div>
         </div>
       </div>
@@ -482,7 +522,7 @@ Experienced in Direct Taxation | Experienced in Direct Taxation | ✔ Response w
 <section id="services-detail" class="sec">
   <div class="sec-inner">
     <div class="sec-badge">Services</div>
-    <h2>Everything You Need for Tax Compliance</h2>
+    <h2>Areas of Professional Assistance</h2>
     <p class="lead">Expert-led services for salaried professionals, freelancers &amp; businesses — all online, PAN India.</p>
     <div class="svc-grid">
       <div class="svc-card-enhanced featured">
@@ -499,7 +539,7 @@ Experienced in Direct Taxation | Experienced in Direct Taxation | ✔ Response w
         </ul>
         <div class="svc-footer">
           <div class="svc-price-block"><div class="svc-price">Consultation Based</div><small>Fee depends on case complexity</small></div>
-          <a class="svc-book-btn" href="https://wa.me/918265860757?text=Hi%20CA%20Pulkit%2C%20I%20want%20help%20with%20ITR%20filing.%20Please%20guide." target="_blank" rel="noopener">Get a Quote</a>
+          <a class="svc-book-btn" href="https://wa.me/918265860757?text=Hi%20CA%20Pulkit%2C%20I%20want%20help%20with%20ITR%20filing.%20Please%20guide." target="_blank" rel="noopener">Connect for Details</a>
         </div>
       </div>
       <div class="svc-card-enhanced">
@@ -514,7 +554,7 @@ Experienced in Direct Taxation | Experienced in Direct Taxation | ✔ Response w
         </ul>
         <div class="svc-footer">
           <div class="svc-price-block"><div class="svc-price">Consultation Based<!-- ✏️ Update price --></div><small>Contact for pricing</small></div>
-          <a class="svc-book-btn" href="https://wa.me/918265860757?text=Hi%20CA%20Pulkit%2C%20I%20want%20help%20with%20ITR%20filing.%20Please%20guide." target="_blank" rel="noopener">Get a Quote</a>
+          <a class="svc-book-btn" href="https://wa.me/918265860757?text=Hi%20CA%20Pulkit%2C%20I%20want%20help%20with%20ITR%20filing.%20Please%20guide." target="_blank" rel="noopener">Connect for Details</a>
         </div>
       </div>
       <div class="svc-card-enhanced">
@@ -529,7 +569,7 @@ Experienced in Direct Taxation | Experienced in Direct Taxation | ✔ Response w
         </ul>
         <div class="svc-footer">
           <div class="svc-price-block"><div class="svc-price">Consultation Based<!-- ✏️ Depends on case and complexity --></div><small></small></div>
-          <a class="svc-book-btn" href="https://wa.me/918265860757?text=Hi%20CA%20Pulkit%2C%20I%20want%20help%20with%20ITR%20filing.%20Please%20guide." target="_blank" rel="noopener">Get a Quote</a>
+          <a class="svc-book-btn" href="https://wa.me/918265860757?text=Hi%20CA%20Pulkit%2C%20I%20want%20help%20with%20ITR%20filing.%20Please%20guide." target="_blank" rel="noopener">Connect for Details</a>
         </div>
       </div>
     </div>
@@ -921,6 +961,10 @@ CA Membership No: 439068 (ICAI)
 Last Updated: 04th April 2026
 </p>
   <div class="footer-copy">© 2026 FinTaxSnippets · CA Pulkit Garg · All Rights Reserved</div>
+
+<p style="font-size:12px;color:var(--text3);margin-top:10px;">
+Disclaimer: This website is intended solely for informational purposes and does not constitute solicitation or advertisement as per ICAI guidelines. Users may reach out voluntarily for professional services.
+</p>
 </footer>
 
 <!-- WHATSAPP -->
@@ -1173,27 +1217,27 @@ loadMediumPosts(); -->
 
 // ANIMATED COUNTERS
 function animateCounter(el){
-  if (el.dataset.animated === "true") return; // prevent multiple runs
-  el.dataset.animated = "true";
+  if (el.dataset.done) return;
+  el.dataset.done = true;
 
-  const target = parseInt(el.dataset.target);
+  const target = +el.dataset.target;
   const suffix = el.dataset.suffix || "";
-  const duration = 1500;
-  let start = 0;
+  let count = 0;
 
-  const stepTime = Math.max(Math.floor(duration / target), 10);
+  const step = target / 100;
 
-  const timer = setInterval(() => {
-    start++;
-    el.textContent = start + suffix;
-
-    if (start >= target) {
-      el.textContent = target + suffix;
-      clearInterval(timer);
+  function update() {
+    count += step;
+    if (count < target) {
+      el.innerText = Math.ceil(count) + suffix;
+      requestAnimationFrame(update);
+    } else {
+      el.innerText = target + suffix;
     }
-  }, stepTime);
-}
+  }
 
+  update();
+}
 // SCROLL FADE-UP ANIMATIONS
 document.querySelectorAll('.sec,.hero-stat-panel,.svc-card-enhanced,.why-card,.cred-item,.testi-carousel,.blog-card').forEach(el=>{
   el.classList.add('fade-up');
@@ -1237,53 +1281,12 @@ function goToSlide(i){testiIndex=Math.min(i,getMax());updateCarousel();}
 setInterval(()=>{testiIndex=testiIndex>=getMax()?0:testiIndex+1;updateCarousel();},4000);
 window.addEventListener('resize',updateCarousel);
 </script>
-<div style="position:fixed;bottom:0;left:0;width:100%;background:#2EAD6B;padding:12px;text-align:center;z-index:999;">
-  <a href="https://wa.me/918265860757?text=Hi%20CA%20Pulkit%2C%20I%20want%20help%20with%20ITR%20filing.%20Please%20guide." style="color:#fff;font-weight:600;text-decoration:none;">
-    📩 Book ITR Filing Now
-  </a>
-</div>
-  <div style="position:fixed;bottom:0;left:0;width:100%;background:#2EAD6B;padding:12px;text-align:center;z-index:999;">
+  <!-- <div style="position:fixed;bottom:0;left:0;width:100%;background: var(--green);padding:12px;text-align:center;z-index:999;">
   <a href="https://wa.me/918265860757?text=Hi%20I%20want%20to%20file%20my%20ITR"
      style="color:#fff;font-weight:600;text-decoration:none;">
     📩 File My ITR Now
   </a>
-</div>
-  <script>
-const track = document.getElementById("testiTrack");
-const cards = document.querySelectorAll(".testi-card-v2");
+</div> -->
 
-let index = 0;
-const total = cards.length;
-
-function updateCarousel() {
-  const cardWidth = cards[0].offsetWidth + 16; // 16 = gap
-  track.style.transform = `translateX(-${index * cardWidth}px)`;
-}
-
-// NEXT
-function nextTestimonial() {
-  if (index < total - 2) {
-    index++;
-  } else {
-    index = 0;
-  }
-  updateCarousel();
-}
-
-// PREV
-function prevTestimonial() {
-  if (index > 0) {
-    index--;
-  } else {
-    index = total - 2;
-  }
-  updateCarousel();
-}
-
-// AUTO SLIDE
-setInterval(() => {
-  nextTestimonial();
-}, 4000);
-</script>
 </body>
 </html>
