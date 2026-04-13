@@ -370,6 +370,15 @@ box-shadow: 0 14px 40px rgba(0,0,0,0.08);}
 .testi-arrow{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--text2);transition:border-color 0.2s,color 0.2s;}
 .testi-arrow:hover{border-color:var(--green);color:var(--green);}
 @media(max-width:768px){.testi-track .testi-card-v2{min-width:100%;}}
+
+.faq-a {
+  display: none;
+  margin-top: 10px;
+}
+
+.faq-item.active .faq-a {
+  display: block;
+}
 </style>
 </head>
 <body>
@@ -390,7 +399,7 @@ box-shadow: 0 14px 40px rgba(0,0,0,0.08);}
   <div class="nav-center">
     <a href="#about">About</a>
     <a href="#services-detail">Services</a>
-    <a href="#tools">Tax Tools</a>
+   <!-- <a href="#tools">Tax Tools</a> -->
     <a href="#faq">FAQ</a>
     <a href="#testimonials">Reviews</a>
    <a href="#blog">Tax Insights</a>
@@ -610,7 +619,7 @@ Experienced in Direct Taxation | Experienced in Direct Taxation | ✔ Response w
 <div class="divider"></div>
 
 <!-- TAX TOOLS -->
-<section id="tools" class="sec">
+<!-- <section id="tools" class="sec">
   <div class="sec-inner">
     <div class="sec-badge">Free Tax Tools</div>
     <h2>Calculate Your Tax — Instantly</h2>
@@ -630,10 +639,10 @@ Experienced in Direct Taxation | Experienced in Direct Taxation | ✔ Response w
       <button class="tool-tab" onclick="showTool('itr',this)">ITR Form Selector</button>
       <button class="tool-tab" onclick="showTool('hra',this)">HRA Calculator</button>
       <button class="tool-tab" onclick="showTool('tds',this)">TDS Calculator</button>
-    </div>
+    </div> -->
 
     <!-- INCOME TAX CALCULATOR -->
-    <div id="tool-calc" class="tool-panel">
+   <!-- <div id="tool-calc" class="tool-panel">
       <div class="tool-grid">
         <div class="tool-field"><label>Gross Annual Income (₹)</label><input type="number" id="income" value="1200000" min="0" step="10000" oninput="calcTax()"/></div>
         <div class="tool-field"><label>Age Group</label>
@@ -663,10 +672,10 @@ Experienced in Direct Taxation | Experienced in Direct Taxation | ✔ Response w
         </div>
       </div>
       <div class="breakdown-box" id="tax-breakdown"></div>
-    </div>
+    </div> -->
 
     <!-- ITR FORM SELECTOR -->
-    <div id="tool-itr" class="tool-panel" style="display:none;">
+    <!-- <div id="tool-itr" class="tool-panel" style="display:none;">
       <div class="itr-q"><label>Who are you?</label>
         <div class="chip-group">
           <button class="chip" onclick="selITR(this,'who','individual')">Individual</button>
@@ -703,10 +712,10 @@ Experienced in Direct Taxation | Experienced in Direct Taxation | ✔ Response w
         <div style="font-size:14px;color:var(--text2);margin-bottom:1rem;" id="itr-form-desc"></div>
         <div id="itr-form-points"></div>
       </div>
-    </div>
+    </div> -->
 
     <!-- HRA CALCULATOR -->
-    <div id="tool-hra" class="tool-panel" style="display:none;">
+   <!-- <div id="tool-hra" class="tool-panel" style="display:none;">
       <div class="tool-field" style="margin-bottom:1.5rem;">
         <label>Select Your City</label>
         <select id="hra_city" onchange="calcHRA()" style="font-size:15px;padding:12px 16px;"></select>
@@ -728,10 +737,10 @@ Experienced in Direct Taxation | Experienced in Direct Taxation | ✔ Response w
         <div class="brow last"><span>Tax Saved (30% bracket)</span><span id="h_saved" style="color:var(--green);">₹0</span></div>
       </div>
       <p style="font-size:11px;color:var(--text3);margin-top:8px;">Exemption u/s 10(13A) — minimum of 3 conditions applies</p>
-    </div>
+    </div> -->
 
     <!-- TDS CALCULATOR -->
-    <div id="tool-tds" class="tool-panel" style="display:none;">
+   <!-- <div id="tool-tds" class="tool-panel" style="display:none;">
       <div class="tool-toggle">
         <button class="regime-btn active" onclick="setTDSRegime(this,'new')">New Regime</button>
         <button class="regime-btn" onclick="setTDSRegime(this,'old')">Old Regime</button>
@@ -756,7 +765,7 @@ Experienced in Direct Taxation | Experienced in Direct Taxation | ✔ Response w
         <div class="brow last"><span>Monthly TDS u/s 192</span><span id="tr5">₹0</span></div>
       </div>
     </div>
-  </div>
+  </div> -->
 </section>
 
 <div class="divider"></div>
@@ -1010,13 +1019,18 @@ function showTool(id,btn){
   btn.classList.add('active');
 }
 
-function togFAQ(el){
-  const ans=el.nextElementSibling;
-  const icon=el.querySelector('.faq-icon');
-  const isOpen=ans.classList.contains('open');
-  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
-  document.querySelectorAll('.faq-icon').forEach(i=>i.textContent='+');
-  if(!isOpen){ans.classList.add('open');icon.textContent='−';}
+function togFAQ(element) {
+  const parent = element.parentElement;
+  const answer = parent.querySelector(".faq-a");
+  const icon = element.querySelector(".faq-icon");
+
+  if (answer.style.display === "block") {
+    answer.style.display = "none";
+    icon.textContent = "+";
+  } else {
+    answer.style.display = "block";
+    icon.textContent = "-";
+  }
 }
 
 function fmt(n){return '₹'+Math.round(n).toLocaleString('en-IN');}
@@ -1181,7 +1195,7 @@ function calcTDS(){
 calcTDS();
 
 // MEDIUM BLOG FETCH
-<!-- async function loadMediumPosts(){
+// async function loadMediumPosts(){
   const grid=document.getElementById('blog-grid');
   try{
     const rss='https://medium.com/feed/@garg.pulkit131';
@@ -1213,7 +1227,7 @@ calcTDS();
     </div>`;
   }
 }
-loadMediumPosts(); -->
+loadMediumPosts(); }
 
 // ANIMATED COUNTERS
 function animateCounter(el){
@@ -1269,17 +1283,34 @@ let testiIndex=0;
 function getVisible(){return window.innerWidth<=768?1:2;}
 function getMax(){return 4-getVisible();}
 function updateCarousel(){
-  const track=document.getElementById('testiTrack');
-  if(!track)return;
-  const cardWidth=track.children[0].offsetWidth+16;
-  testiIndex=Math.min(testiIndex,getMax());
-  track.style.transform=`translateX(-${testiIndex*cardWidth}px)`;
-  document.querySelectorAll('.testi-dot').forEach((d,i)=>d.classList.toggle('active',i===testiIndex));
+  const track = document.getElementById('testiTrack');
+  if(!track || !track.children.length) return;
+
+  const cardWidth = track.children[0].getBoundingClientRect().width + 16;
+
+  testiIndex = Math.min(testiIndex, getMax());
+  track.style.transform = `translateX(-${testiIndex * cardWidth}px)`;
+
+  document.querySelectorAll('.testi-dot')
+    .forEach((d,i)=>d.classList.toggle('active', i === testiIndex));
 }
 function moveCarousel(dir){testiIndex=Math.max(0,Math.min(testiIndex+dir,getMax()));updateCarousel();}
 function goToSlide(i){testiIndex=Math.min(i,getMax());updateCarousel();}
 setInterval(()=>{testiIndex=testiIndex>=getMax()?0:testiIndex+1;updateCarousel();},4000);
 window.addEventListener('resize',updateCarousel);
+window.addEventListener('load', updateCarousel);
+
+function togFAQ(element) {
+  const parent = element.parentElement;
+
+  // Toggle active class
+  parent.classList.toggle("active");
+
+  // Icon toggle
+  const icon = element.querySelector(".faq-icon");
+  icon.textContent = parent.classList.contains("active") ? "-" : "+";
+}
+
 </script>
   <!-- <div style="position:fixed;bottom:0;left:0;width:100%;background: var(--green);padding:12px;text-align:center;z-index:999;">
   <a href="https://wa.me/918265860757?text=Hi%20I%20want%20to%20file%20my%20ITR"
@@ -1287,6 +1318,16 @@ window.addEventListener('resize',updateCarousel);
     📩 File My ITR Now
   </a>
 </div> -->
+
+<script>
+function togFAQ(element) {
+  const parent = element.parentElement;
+  parent.classList.toggle("active");
+
+  const icon = element.querySelector(".faq-icon");
+  icon.textContent = parent.classList.contains("active") ? "-" : "+";
+}
+</script>
 
 </body>
 </html>
